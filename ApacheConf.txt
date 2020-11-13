@@ -1,0 +1,23 @@
+<VirtualHost *:443>
+                ServerName vitaccess.tech
+                ServerAlias www.vitaccess.tech
+		DocumentRoot /var/www/webApp/webApp
+                ServerAdmin email@mywebsite.com
+                WSGIScriptAlias / /var/www/webApp/webapp.wsgi
+                <Directory /var/www/webApp/webApp/>
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                Alias /static /var/www/webApp/webApp/static
+		<Directory /var/www/webApp/webApp/static/>
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                ErrorLog "|/usr/bin/rotatelogs ${APACHE_LOG_DIR}/errorlog.%Y-%m-%d 5M"
+                LogLevel warn
+                CustomLog "|/usr/bin/rotatelogs ${APACHE_LOG_DIR}/accesslog.%Y-%m-%d 5M" combined
+
+                SSLEngine on
+                SSLCertificateFile /var/cloudflare_cert/cirtificate.pem
+                SSLCertificateKeyFile /var/cloudflare_cert/site.key
+</VirtualHost>

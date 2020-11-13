@@ -1,0 +1,45 @@
+Instructions for Production mode
+-> debug mode False
+-> give 777 permission to database folder so that apache could write files in it. Use propperties of folder in WinSCP
+-> if the database folder needs to be cleaned up and initialzed again use intiDB route with hardcoded password.
+-> To know the location of executable in lunix,like rotatelogs, use 
+which rotatelogs
+use this location to configure rotatelogs.
+- To change server timezone sudo ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+-> for flask rotate logs use app.run(debug=True, use_reloader=False)
+if debug mode is on. Because multiprocessing_logging will initialise twice which will be confliction when FileHandler will rotate logs.
+
+-> use use_reloader=True if DB is not created
+
+Server response code usage of the App
+418 - Hack, exploit
+503 - defect in known area
+500 - unknown defect
+401 - unauthorized
+
+
+Internal Error codes - 
+Series - 
+10 -19 Login based error
+20 -29 - Server based error
+30 - 39 - Exploit based error
+
+
+Login Eror
+-------------------------------
+10 - general auth failure vtop
+11 - general auth failure moodle
+
+Server Error
+------------------------------
+20 - Unhandled exception
+21 - Handled exception
+22 - Vtop server fail
+23 - Maintance mode enabled. End time not mentioned.
+24 - Maintence mode enabled. End time mentioned
+
+
+Exploit error
+-------------------------------
+30 - Exploit detected
+31 - Exploit detected, logout and block user
